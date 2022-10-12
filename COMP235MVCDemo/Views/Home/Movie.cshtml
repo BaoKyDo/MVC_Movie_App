@@ -1,0 +1,66 @@
+﻿@model COMP235MVCDemo.Models.Movie
+@{
+    ViewBag.Title = "Movie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #table, tr, td {
+        border-collapse: collapse;
+        width: auto;
+        border: 1px solid;
+        padding: 10px
+    }
+
+    tr {
+        background-color: #e6e6e6;
+    }
+
+    th {
+        background-color: #4d4d4d;
+        color: white;
+        font-size: 18px;
+    }
+</style>
+
+<h2>Movie</h2>
+
+@using (Html.BeginForm("Movie", "Home", FormMethod.Post))
+{
+    @*@Html.HiddenFor(m => m.EditIndex)*@
+    <table>
+
+        <tr>
+            <th></th>
+            <th>@Html.Label("Title")</th>
+            <th>@Html.Label("Director")</th>
+            <th>@Html.Label("Description")</th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @if (!Model.IsEditable)
+        {
+            <tr>
+                <td>@Html.HiddenFor(m => m.Id)</td>
+                <td>@Html.DisplayFor(m => m.Title)</td>
+                <td>@Html.DisplayFor(m => m.Director)</td>
+                <td>@Html.DisplayFor(m => m.Description)</td>
+                <td>@Html.ActionLink("Edit", "EditAMovie", new { id = Model.Id })</td>
+                <td>@Html.ActionLink("Delete", "DeleteAMovie", new { id = Model.Id })</td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td>@Html.HiddenFor(m => m.Id)</td>
+                <td>@Html.TextBoxFor(m => m.Title)</td>
+                <td>@Html.TextBoxFor(m => m.Director)</td>
+                <td>@Html.TextBoxFor(m => m.Description)</td>
+                <td> <input type="submit" value="Save" name="Save" class="btn btn-link" /></td>
+                <td> <input type="submit" value="Cancel" name="Cancel" class="btn btn-link" /></td>
+            </tr>
+        }
+
+    </table>
+}
